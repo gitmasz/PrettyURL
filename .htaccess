@@ -1,0 +1,23 @@
+RewriteEngine On
+RewriteRule ^index.php$ %{REQUEST_SCHEME}://%{HTTP_HOST}/$1 [R=301,L]
+RewriteRule ^index.htm$ %{REQUEST_SCHEME}://%{HTTP_HOST}/$1 [R=301,L]
+RewriteRule ^index.html$ %{REQUEST_SCHEME}://%{HTTP_HOST}/$1 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteCond %{THE_REQUEST} ^((?!index).)*$ [NC]
+RewriteRule ^(.*)/$ $1.php [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteCond %{THE_REQUEST} ^((?!index).)*$ [NC]
+RewriteRule ^(.*)$ $1.php [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{THE_REQUEST} ^.*php [NC]
+RewriteCond %{THE_REQUEST} ^((?!excluded-subpage).)*$ [NC]
+RewriteCond %{THE_REQUEST} ^((?!api/excluded-subpage).)*$ [NC]
+RewriteCond %{THE_REQUEST} ^((?!index).)*$ [NC]
+RewriteRule ^(.+)\.php$ %{REQUEST_SCHEME}://%{HTTP_HOST}/$1/ [L,R=301]
+RewriteRule ^([a-z]+)/$ /$1.php [L]
